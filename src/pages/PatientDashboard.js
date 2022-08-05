@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import List from '../components/List'
 import Modal from '../components/Modal'
 
@@ -66,24 +66,24 @@ const PatientDashboard = () => {
     const [toggle, setToggle] = useState(true)
 
     useEffect(() => {
-        if (!patientBlockchainAddress)
-            return;
-        console.log("Fetching all records");
-        setIsLoading(true);
-        getRecordHistory(patientBlockchainAddress)
-            .then(rawRecords => {
-                processRecords(rawRecords)
-                    .then(processedRecords => {
-                        setIsLoading(false);
-                        setMedicalHistory(processedRecords.medicalHistory)
-                        setPendingRequests(processedRecords.pendingRecords)
-                    })
-                    .catch(err => {
-                        console.log("Some error fetching records", err);
-                    });
-            }).catch(err => {
-                console.log("Some error fetching records", err);
-            })
+        if (patientBlockchainAddress){
+            console.log("Fetching all records");
+            setIsLoading(true);
+            getRecordHistory(patientBlockchainAddress)
+                .then(rawRecords => {
+                    processRecords(rawRecords)
+                        .then(processedRecords => {
+                            setIsLoading(false);
+                            setMedicalHistory(processedRecords.medicalHistory)
+                            setPendingRequests(processedRecords.pendingRecords)
+                        })
+                        .catch(err => {
+                            console.log("Some error fetching records", err);
+                        });
+                }).catch(err => {
+                    console.log("Some error fetching records", err);
+                })
+        }
     }, [refresh, patientBlockchainAddress]);
 
     const onApproveClickHandler = (item) => {
@@ -118,11 +118,11 @@ const PatientDashboard = () => {
 
     if(!auth.loggedIn || !auth.entityInfo || !auth.wallet || !auth.authority){
         auth.logout();
-        return <Redirect to='/login/patient' />
+        return <Navigate to='/login/patient' />
     }
 
     if (auth.authority !== AUTHORITY_TYPES.PATIENT)
-        return <Redirect to='/' />
+        return <Navigate to='/' />
 
     return (
         <Container>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, Redirect } from 'react-router-dom'
+import { useLocation, Navigate } from 'react-router-dom'
 import { getPatientPersonalInfo, getRecordHistory } from '../apis/medblock'
 import Modal from '../components/Modal'
 import {
@@ -56,35 +56,35 @@ const AnyRecordDisplay = () => {
   const [modalState, setModalState] = useState(false)
 
   useEffect(() => {
-    if (!patientBlockchainAddress)
-      return;
-    console.log("Fetching all records");
-    setIsLoading(true);
-    getRecordHistory(patientBlockchainAddress)
-      .then(rawRecords => {
-        processRecords(rawRecords)
-          .then(processedRecords => {
-            setIsLoading(false);
-            setMedicalHistory(processedRecords.medicalHistory)
-            // setPendingRequests(processedRecords.pendingRecords)
-          })
-          .catch(err => {
-            console.log("Some error fetching records", err);
-          });
-      }).catch(err => {
-        console.log("Some error fetching records", err);
-      })
-    getPatientPersonalInfo(patientBlockchainAddress)
-      .then(res => {
-        setPatientDetails(res)
-      })
-      .catch(err => {
-        console.log(err)
-      })
+    if (patientBlockchainAddress){
+      console.log("Fetching all records");
+      setIsLoading(true);
+      getRecordHistory(patientBlockchainAddress)
+        .then(rawRecords => {
+          processRecords(rawRecords)
+            .then(processedRecords => {
+              setIsLoading(false);
+              setMedicalHistory(processedRecords.medicalHistory)
+              // setPendingRequests(processedRecords.pendingRecords)
+            })
+            .catch(err => {
+              console.log("Some error fetching records", err);
+            });
+        }).catch(err => {
+          console.log("Some error fetching records", err);
+        })
+      getPatientPersonalInfo(patientBlockchainAddress)
+        .then(res => {
+          setPatientDetails(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
   }, [refresh, patientBlockchainAddress]);
 
   if (!patientBlockchainAddress)
-    return <Redirect to="/dashboard" />
+    return <Navigate to="/dashboard" />
   return (
     <Container>
       {modalState && <Backdrop onClick={() => setModalState(false)} />}

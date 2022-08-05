@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import web3 from "../services/web3";
 
@@ -181,10 +181,10 @@ const PatientRegistration = () => {
 
   if (!auth.loggedIn || !auth.entityInfo || !auth.wallet || !auth.authority) {
     auth.logout();
-    return <Redirect to="/login/admin" />;
+    return <Navigate to="/login/admin" />;
   }
 
-  if (auth.authority !== AUTHORITY_TYPES.ADMIN) return <Redirect to="/" />;
+  if (auth.authority !== AUTHORITY_TYPES.ADMIN) return <Navigate to="/" />;
 
   return (
     <Container className="pt-4">

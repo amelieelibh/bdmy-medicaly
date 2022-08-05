@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { QRCode } from "react-qrcode-logo";
 import Nbsp from "../utils/nbsp";
 
@@ -64,10 +64,10 @@ const HospitalDashboard = () => {
 
   if (!auth.loggedIn || !auth.entityInfo || !auth.wallet || !auth.authority) {
     auth.logout();
-    return <Redirect to="/login/hospital" />;
+    return <Navigate to="/login/hospital" />;
   }
 
-  if (auth.authority !== AUTHORITY_TYPES.HOSPITAL) return <Redirect to="/" />;
+  if (auth.authority !== AUTHORITY_TYPES.HOSPITAL) return <Navigate to="/" />;
 
   return (
     <HospitalDashboardContainer>

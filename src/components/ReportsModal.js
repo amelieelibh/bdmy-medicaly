@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { Swiper, SwiperSlide } from "swiper/react";
-import 'swiper/swiper-bundle.min.css'
-import 'swiper/swiper.min.css'
+// import Swiper and modules styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 
 import { ReactComponent as ExpandArrow } from '../assets/icons/general/expandArrow.svg'

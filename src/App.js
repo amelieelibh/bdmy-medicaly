@@ -1,6 +1,6 @@
 import React from "react";
 import NewRecord from "./pages/NewRecord";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import {
   About,
@@ -31,30 +31,29 @@ const App = () => {
     <AuthProvider>
       <BrowserRouter>
         <Navbar />
-        <Switch>
-          <Route exact path="/" component={LandingPage} />
-          <Route exact path="/about" component={About} />
+        <Routes>
+          <Route exact path="" element={<LandingPage />} />
+          <Route exact path="/about" element={<About />} />
 
-          <Route exact path="/dashboard" component={UniversalDashboard} />
-          <Route exact path="/adminDashboard" component={AdminDashboard} />
+          <Route exact path="/dashboard" element={<UniversalDashboard />} />
+          <Route exact path="/adminDashboard" element={<AdminDashboard />} />
           <Route
             exact
             path="/hospitalDashboard"
-            component={HospitalDashboard}
+            element={<HospitalDashboard />}
           />
-          <Route exact path="/patientDashboard" component={PatientDashboard} />
-          <Route exact path="/newRecord" component={NewRecord} />
-          <Route exact path="/declinedRecords" component={DeclinedRecords} />
+          <Route exact path="/patientDashboard" element={<PatientDashboard />} />
+          <Route exact path="/newRecord" element={<NewRecord />} />
+          <Route exact path="/declinedRecords" element={<DeclinedRecords />} />
 
-          <Route exact path="/login/:type" component={Login} />
-          <Route exact path="/anyRecord" component={AnyRecord} />
-          <Route exact path="/anyRecordDisplay" component={AnyRecordDisplay} />
+          <Route exact path="/login/:type" element={<Login />} />
+          <Route exact path="/anyRecord" element={<AnyRecord />} />
+          <Route exact path="/anyRecordDisplay" element={<AnyRecordDisplay />} />
 
-          <Route exact path="/newPatient" component={PatientRegistration} />
-          <Route exact path="/newHospital" component={HospitalRegistration} />
+          <Route exact path="/newPatient" element={<PatientRegistration />} />
+          <Route exact path="/newHospital" element={<HospitalRegistration />} />
 
-          <Redirect to="/" />
-        </Switch>
+        </Routes>
       </BrowserRouter>
     </AuthProvider>
   );

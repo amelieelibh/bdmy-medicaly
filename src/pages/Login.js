@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useParams, Redirect } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faCamera } from "@fortawesome/free-solid-svg-icons";
-import QrReader from "react-qr-reader";
+import {QrReader} from "react-qr-reader";
 import QrcodeDecoder from 'qrcode-decoder';
 
 import basicInfo from "../assets/illustrations/basicInfo2.png";
@@ -105,7 +105,7 @@ const onFileChangeHandler = async (file) => {
   if (auth.loggedIn) {
     const path = `/${type}Dashboard`;
     console.log(path);
-    return <Redirect to={path} />;
+    return <Navigate to={path} />;
   }
 
   return (

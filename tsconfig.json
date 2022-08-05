@@ -1,0 +1,51 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+    "target": "ES6",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "declaration": true,
+    "sourceMap": false,
+    "outDir": "./out",
+    "removeComments": true,
+    "noEmit": true,
+    "preserveConstEnums": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "allowUnreachableCode": true,
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "node_modules/**/*",
+    "./out/**/*"
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "src/custom.d.ts", 
+    "**/*.jsx"  
+],
+  "files": [
+    "src/custom.d.ts"
+  ]
+}

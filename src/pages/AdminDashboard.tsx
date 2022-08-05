@@ -1,11 +1,8 @@
-import React from "react";
-import { Redirect } from "react-router-dom";
 import { QRCode } from "react-qrcode-logo";
 
-import { useAuth } from "../services/authorization";
-import { AUTHORITY_TYPES } from "../Constants/authorityTypes";
+// import { useAuth } from "../services/authorization";
+// import { AUTHORITY_TYPES } from "../Constants/authorityTypes";
 import { getInitials } from "../utils/dataUtils";
-import Nbsp from "../utils/nbsp";
 
 import {
   AdminDashboardContainer,
@@ -44,7 +41,7 @@ import {
   FCName,
 } from "./AdminDashboard.styled";
 
-import { ReactComponent as Dashboardlogo } from "../assets/icons/admin/dashboardicon.svg";
+import {ReactComponent as Dashboardlogo} from "../assets/icons/admin/dashboardicon.svg";
 import { ReactComponent as LogoutLogo } from "../assets/icons/admin/logouticon.svg";
 import { ReactComponent as UserLogo } from "../assets/icons/admin/usericon.svg";
 import { ReactComponent as SettingsLogo } from "../assets/icons/admin/settingsicon.svg";
@@ -60,23 +57,40 @@ import { ReactComponent as Security } from "../assets/icons/admin/security.svg";
 import { ReactComponent as Graph } from "../assets/icons/admin/Graph.svg";
 import { ReactComponent as Doctor } from "../assets/icons/admin/doctor.svg";
 
+import {useWalletState} from "../utils/WalletConnect";
+import { useMedicineSupply } from "../utils/SmartContractHelper";
+import { useEffect } from "react";
+
 const AdminDashboard = () => {
-  const auth = useAuth();
-  const adminInfo = auth.entityInfo;
-  console.log(adminInfo);
+  // const auth = useAuth();
+  // const adminInfo = auth.entityInfo;
+  // console.log(adminInfo);
 
-  if (!auth.loggedIn) return <Redirect to="/login/admin" />;
+  const walletState = useWalletState(window);
+  // console.log("walletState", walletState);
+  const {medicineSupplyAddress, medicineSupplyContract, loadingMedicineSupply} = useMedicineSupply(walletState);
 
-  if (auth.authority !== AUTHORITY_TYPES.ADMIN) return <Redirect to="/" />;
+  useEffect(() => {
+    console.log("medicineSupplyAddress", medicineSupplyAddress);
+    console.log("medicineSupplyContract", medicineSupplyContract);
+    console.log("loadingMedicineSupply", loadingMedicineSupply);
+  }, [medicineSupplyAddress, medicineSupplyContract, loadingMedicineSupply]);
+
+  // if (!auth.loggedIn) return <Navigate to="/login/admin" />;
+
+  // if (auth.authority !== AUTHORITY_TYPES.ADMIN) return <Navigate to="/" />;
+
+  const logout = () => {
+  };
 
   return (
     <AdminDashboardContainer>
       <Left>
         <LeftHead>
           Hi, admin
-          <Nbsp />
+          &nbsp;
           <WaivingEmoji />
-          <Nbsp />
+          &nbsp;
           {/* Admin name */}
         </LeftHead>
         <NavMenuList>
@@ -85,10 +99,10 @@ const AdminDashboard = () => {
             <NavlinkActive to="/adminDashboard">
               <div>
                 <Dashboardlogo />
-                <Nbsp />
+                &nbsp;
               </div>
               <div>
-                <Nbsp />
+                &nbsp;
                 Dashboard
               </div>
             </NavlinkActive>
@@ -97,10 +111,10 @@ const AdminDashboard = () => {
             <Navlink to="/newPatient">
               <div>
                 <UserLogo />
-                <Nbsp />
+                &nbsp;
               </div>
               <div>
-                <Nbsp />
+                &nbsp;
                 User Registration
               </div>
             </Navlink>
@@ -109,23 +123,23 @@ const AdminDashboard = () => {
             <Navlink to="/newHospital">
               <div>
                 <HospitalLogo />
-                <Nbsp />
+                &nbsp;
               </div>
               <div>
-                <Nbsp />
+                &nbsp;
                 Hospital Registration
               </div>
             </Navlink>
           </ListItems>
           <ListItems>
-            <Navlink onClick={auth.logout} to="">
+            <Navlink onClick={logout} to="">
               <div>
                 <LogoutLogo />
-                <Nbsp />
+                &nbsp;
               </div>
               <div>
-                {" "}
-                <Nbsp />
+                &nbsp;
+                &nbsp;
                 Logout
               </div>
             </Navlink>
@@ -134,10 +148,10 @@ const AdminDashboard = () => {
             <Navlink to="">
               <div>
                 <SettingsLogo />
-                <Nbsp />
+                &nbsp;
               </div>
               <div>
-                <Nbsp />
+                &nbsp;
                 Settings
               </div>
             </Navlink>
@@ -147,8 +161,8 @@ const AdminDashboard = () => {
           <NotesDiv>
             <NoteTitle>
               Note
-              <Nbsp />:
-              <Nbsp />
+                &nbsp;:
+                &nbsp;
             </NoteTitle>
             <NoteDescription>
               Admin must strictly verify the revelant doucments during the
@@ -181,56 +195,52 @@ const AdminDashboard = () => {
         </Row3>
       </Center>
       <Right>
-        <div>
-          <center>
+        <div className="text-center">
             <AdminStyling>
               <AdminLogo />
             </AdminStyling>
-          </center>
         </div>
-        <div>
-          <center>
-            <Name>{adminInfo.name}</Name>
+        <div className="text-center">
+            <Name>{"name"}</Name>
             <br />
             <TitleAdmin>
               Admin <TickMark />
             </TitleAdmin>
             <br />
-            <QRCode size={100} value={auth.wallet.address} fgColor="#101010" />
-          </center>
+            <QRCode size={100} value={walletState?.userAddress} fgColor="#101010" />
         </div>
-        <center>
+        <div className="text-center">
           <AdminCard>
             <AdminHeading>
-              <Circle>{getInitials(adminInfo.name)}</Circle>
-              <AdminCardName>{adminInfo.name}</AdminCardName>
+              <Circle>{getInitials("name")}</Circle>
+              <AdminCardName>{"name"}</AdminCardName>
             </AdminHeading>
             <AdminCardDetails>
               <AdminCardReg>
                 <div>
                   Reg No.
-                  <Nbsp />:
-                  <Nbsp />
+                  &nbsp;:
+                  &nbsp;
                 </div>
                 <div>
-                  <Nbsp />
-                  {adminInfo.registeredNumber}
+                  &nbsp;
+                  {walletState?.userAddress}
                 </div>
               </AdminCardReg>
               <AdminCardAdd>
                 <div>
                   Address
-                  <Nbsp />:
-                  <Nbsp />
+                  &nbsp;:
+                  &nbsp;
                 </div>
-                <div>{adminInfo.residentialAddress}</div>
+                <div>{walletState?.userAddress}</div>
               </AdminCardAdd>
             </AdminCardDetails>
             <AdminCardRow3>
               <FCName>FC Card</FCName>
             </AdminCardRow3>
           </AdminCard>
-        </center>
+        </div>
       </Right>
     </AdminDashboardContainer>
   );

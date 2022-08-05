@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { QRCode } from "react-qrcode-logo";
 import TextField from "@mui/material/TextField";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -104,6 +104,7 @@ import { ReactComponent as DeclineLogo } from "../assets/icons/hospital/Decline.
 
 const NewRecord = (props) => {
   const auth = useAuth();
+  const navigate = useNavigate();
 
   //    key | add | confirm | receept
   const [progress, setProgress] = useState(PROGRESS_STATUSES.PATIENT_ADDRESS);
@@ -223,7 +224,7 @@ const NewRecord = (props) => {
     print("recordReceipt", "newRecordReceipt");
   }
 
-  if (!auth.loggedIn) return <Redirect to="/login/hospital" />;
+  if (!auth.loggedIn) return <Navigate to="/login/hospital" />;
   return (
     <HospitalDashboardContainer>
       {modalState && <Backdrop onClick={() => setModalState(false)} />}
@@ -654,7 +655,7 @@ const NewRecord = (props) => {
                 <PrintIcon />
               </RecieptButton>
               <RecieptButton
-                onClick={(e) => props.history.push("/dashboard")}
+                onClick={(e) => navigate("/dashboard")}
                 background="#ffde00"
                 color="#202020"
               >

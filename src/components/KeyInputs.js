@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { TextField } from '@mui/material'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import QrReader from 'react-qr-reader'
+import {QrReader} from 'react-qr-reader'
 
 import CoreButton from '../components/core/Button'
 import { isValidAddress } from '../utils/keyValidator'

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faCamera } from "@fortawesome/free-solid-svg-icons";
-import QrReader from "react-qr-reader";
+import {QrReader} from "react-qr-reader";
 import QrcodeDecoder from 'qrcode-decoder';
 
 import basicInfo from "../assets/illustrations/basicInfo2.png";
@@ -42,7 +42,7 @@ const HeadingConatiner = styled.div`
 `;
 
 const AnyRecord = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [address, setAddress] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -55,7 +55,7 @@ const AnyRecord = () => {
     if (isPkValid) {
       getPatientPersonalInfo(address)
         .then((res) => {
-          history.push({
+          navigate({
             pathname: "/anyRecordDisplay",
             state: {
               patientBlockchainAddress: address,

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Accessibility from "../assets/LandingPage/Accessibility.svg";
 import BlockchainIllustration from "../assets/LandingPage/BlockchainIllustration.svg";
@@ -52,7 +52,7 @@ const LandingPage = () => {
   const ref = useRef();
   const loginRef = useRef();
   const auth = useAuth();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const [menu, setMenu] = useState(false);
 
@@ -74,13 +74,13 @@ const LandingPage = () => {
       <NavbarContainer>
         <Logo />
         <AppName>Medicaly</AppName>
-        <Home onClick={() => history.push("/home")}>
+        <Home onClick={() => navigate("/home")}>
           Inicio
           <BlueLine />
         </Home>
-        <About onClick={() => history.push("/about")}>Nosotros</About>
+        <About onClick={() => navigate("/about")}>Nosotros</About>
         {auth.loggedIn ? (
-          <Login onClick={() => history.push("/dashboard")}>Dashboard</Login>
+          <Login onClick={() => navigate("/dashboard")}>Dashboard</Login>
         ) : (
           <Login onClick={scrollToLoginFlex}>Acceder</Login>
         )}
@@ -148,19 +148,19 @@ const LandingPage = () => {
         </SubContainer4>
         <LoginText>Acceder a Medicaly</LoginText>
         <LoginFlex>
-          <LoginContainer onClick={() => history.push("/login/patient")}>
+          <LoginContainer onClick={() => navigate("/login/patient")}>
             <LoginImage src={PatientLoginIllustration} />
             <LoginButton>Paciente </LoginButton>
           </LoginContainer>
-          <LoginContainer onClick={() => history.push("/login/hospital")}>
+          <LoginContainer onClick={() => navigate("/login/hospital")}>
             <LoginImage src={HospitalLoginIllustration} />
             <LoginButton>Hospital </LoginButton>
           </LoginContainer>
-          <LoginContainer onClick={() => history.push("/login/admin")}>
+          <LoginContainer onClick={() => navigate("/adminDashboard")}>
             <LoginImage src={AdminLoginIllustration} />
             <LoginButton>Administrador</LoginButton>
           </LoginContainer>
-          <LoginContainer onClick={() => history.push("/anyRecord")}>
+          <LoginContainer onClick={() => navigate("/anyRecord")}>
             <LoginImage src={ViewAnyRecordsIllustration} />
             <LoginButton style={{ width: "90%" }}>Acceder a Registros</LoginButton>
           </LoginContainer>

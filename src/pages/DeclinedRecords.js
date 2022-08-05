@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { QRCode } from "react-qrcode-logo";
 import Nbsp from "../utils/nbsp";
 import { getInitials } from "../utils/dataUtils";
@@ -57,15 +57,16 @@ const DeclinedRecords = (props) => {
   const [refresh, setRefresh] = useState();
 
   useEffect(() => {
-    if (!auth.wallet || !auth.wallet.address) return;
-    getDeclinedRecordList(auth.wallet.address)
-      .then(setDeclinedRecords)
-      .catch((err) => {
-        console.log(err);
-        console.log(
-          `Some error occured while fetching the declined records for hospital ${auth.wallet.address}`
-        );
-      });
+    if (auth.wallet && auth.wallet.address) {
+      getDeclinedRecordList(auth.wallet.address)
+        .then(setDeclinedRecords)
+        .catch((err) => {
+          console.log(err);
+          console.log(
+            `Some error occured while fetching the declined records for hospital ${auth.wallet.address}`
+          );
+        });
+    }
   }, [auth, refresh]);
 
   function onRecordDismissed() {
@@ -104,7 +105,7 @@ const DeclinedRecords = (props) => {
   //medicationList,
   //senderHospital
 
-  if (!auth || !hospitalInfo) return <Redirect to="/" />;
+  if (!auth || !hospitalInfo) return <Navigate to="/" />;
 
   return (
     <HospitalDashboardContainer>
